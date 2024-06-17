@@ -1,5 +1,8 @@
--- Table Users
-CREATE TABLE Users (
+-- Utilisation de la base de données SystemeRecommandation
+USE SystemeRecommandation;
+
+-- Création de la table Users si elle n'existe pas
+CREATE TABLE IF NOT EXISTS Users (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     Username VARCHAR(100) NOT NULL UNIQUE,
     Email VARCHAR(255) NOT NULL UNIQUE,
@@ -12,7 +15,8 @@ CREATE TABLE Users (
     Crainte_Tâcher BOOLEAN
 );
 
--- Table Entrainement
+-- Suppression et création de la table Entrainement
+DROP TABLE IF EXISTS Entrainement;
 CREATE TABLE Entrainement (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Utilisateur_ID INT,
@@ -24,7 +28,8 @@ CREATE TABLE Entrainement (
     FOREIGN KEY (Utilisateur_ID) REFERENCES Users(ID)
 );
 
--- Table Sessions
+-- Suppression et création de la table Sessions
+DROP TABLE IF EXISTS Sessions;
 CREATE TABLE Sessions (
     SessionID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
@@ -33,3 +38,4 @@ CREATE TABLE Sessions (
     ExpiresAt TIMESTAMP,
     FOREIGN KEY (UserID) REFERENCES Users(ID)
 );
+
