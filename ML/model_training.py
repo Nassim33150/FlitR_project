@@ -84,3 +84,16 @@ X = df[['Âge', 'Sport pratiqué_autre', 'Sport pratiqué_course sur route', 'Sp
         'Crainte de tâcher sous-vêtements', 'Contraception ?', "Programme d'entrainement", "Nombre d'entrainements par semaine_2 à 4 entrainements/semaine", "Nombre d'entrainements par semaine_4 à 6 entrainements/semaine", "Nombre d'entrainements par semaine_<2 entrainements/semaine", "Nombre d'entrainements par semaine_>6 entrainements/semaine", "abondance_des_regles", "ne_suit_pas_programme", ]]
 
 y = df['besoin_d_entrainement']
+
+# Diviser les données en ensembles d'entraînement et de test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Entraîner le modèle de régression linéaire
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Faire des prédictions
+y_pred = model.predict(X_test)
+
+# Binariser les prédictions (0 ou 1) car c'est un problème de classification binaire
+y_pred_binary = [1 if pred >= 0.5 else 0 for pred in y_pred]
